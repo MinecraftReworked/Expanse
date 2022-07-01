@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "expanse:ender_block"
+    }
+  ],
+  "result": {
+    "item": "expanse:ender_ingot",
+    "count": 9
+  }
+}
