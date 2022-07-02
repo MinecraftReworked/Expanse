@@ -12,12 +12,23 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class BlockRegistry {
-    public static final Block ENDER_BLOCK = registerBlock("ender_block",
+    public static final Block STEEL_BLOCK = registerBlock("steel_block",
             new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()), ItemGroup.MISC);
 
-    public static final Block ENDER_ORE = registerBlock("ender_ore",
+    public static final Block OSMIUM_ORE = registerBlock("osmium_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+    public static final Block OSMIUM_BLOCK = registerBlock("osmium_block",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+    public static final Block DEEPSLATE_OSMIUM_ORE = registerBlock("deepslate_osmium_ore",
             new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
 
+
+    public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+    public static final Block URANIUM_ORE = registerBlock("uranium_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+
+// PLANET BLOCKS
     public static final Block MOON_STONE = registerBlock("moon_stone",
             new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()), ItemGroup.MISC);
     public static final Block MOON_SAND = registerBlock("moon_sand",

@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "expanse:raw_ender"
+    "item": "expanse:dirty_steel"
   },
-  "result": "expanse:ender_ingot",
+  "result": "expanse:steel_ingot",
   "experience": 0.7,
   "cookingtime": 200
 }

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "expanse:osmium_block"
+    }
+  ],
+  "result": {
+    "item": "expanse:osmium_ingot",
+    "count": 9
+  }
+}

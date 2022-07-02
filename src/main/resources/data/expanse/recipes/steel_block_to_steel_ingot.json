@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "expanse:ender_block"
+      "item": "expanse:steel_block"
     }
   ],
   "result": {
-    "item": "expanse:ender_ingot",
+    "item": "expanse:steel_ingot",
     "count": 9
   }
 }

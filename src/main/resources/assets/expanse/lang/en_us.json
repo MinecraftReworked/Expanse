@@ -1,10 +1,22 @@
 {
-  "item.expanse.ender_ingot": "Ender Ingot",
-  "item.expanse.raw_ender": "Raw Ender",
-  "block.expanse.ender_block": "Ender Block",
-  "block.expanse.ender_ore": "Ender Ore",
+  "item.expanse.steel_ingot": "Steel Ingot",
+  "block.expanse.steel_ingot": "Steel Block",
+  "item.expanse.dirty_steel": "Dirty Steel",
+
+  "item.expanse.raw_osmium": "Raw Osmium",
+  "block.expanse.osmium_block": "Osmium Block",
+  "block.expanse.osmium_ore": "Osmium Ore",
+  "block.expanse.deepslate_osmium_ore": "Deepslate Osmium Ore",
+  "item.expanse.osmium_ingot": "Osmium Ingot",
+
+  "block.expanse.deepslate_uranium_ore": "Deepslate Uranium Ore",
+  "block.expanse.uranium_ore": "Uranium Ore",
+  "item.expanse.raw_uranium": "Raw Uranium",
+
+
+
   "block.expanse.moon_stone": "Moon Stone",
-    "block.expanse.moon_sand": "Moon Sand",
+  "block.expanse.moon_sand": "Moon Sand",
 
 
 

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "expanse:osmium_ingot"
+    }
+  },
+  "result": {
+    "item": "expanse:osmium_block"
+  }
+}

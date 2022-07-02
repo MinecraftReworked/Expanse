@@ -7,7 +7,10 @@ import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.HeightRangePlacementModifier;
 
 public class Placement {
-    public static final RegistryEntry<PlacedFeature> ENDER_ORE_PLACED = PlacedFeatures.register("ender_ore_placed",
-            FeaturesConfig.ENDER_ORE, OreFeature.modifiersWithCount(7,
+    public static final RegistryEntry<PlacedFeature> OSMIUM_ORE_PLACED = PlacedFeatures.register("osmium_ore_placed",
+            FeaturesConfig.OSMIUM_ORE, OreFeature.modifiersWithCount(7,
+                    HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(-80), YOffset.aboveBottom(80))));
+    public static final RegistryEntry<PlacedFeature> URANIUM_ORE_PLACED = PlacedFeatures.register("uranium_ore_placed",
+            FeaturesConfig.URANIUM_ORE, OreFeature.modifiersWithCount(7,
                     HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(-80), YOffset.aboveBottom(80))));
 }

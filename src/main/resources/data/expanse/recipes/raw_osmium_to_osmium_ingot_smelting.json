@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "expanse:raw_osmium"
+  },
+  "result": "expanse:osmium_ingot",
+  "experience": 0.7,
+  "cookingtime": 200
+}

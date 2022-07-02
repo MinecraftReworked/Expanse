@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "expanse:ender_ingot"
+      "item": "expanse:steel_ingot"
     }
   },
   "result": {
-    "item": "expanse:ender_block"
+    "item": "expanse:steel_block"
   }
 }

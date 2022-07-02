@@ -18,8 +18,8 @@ public class ExpanseMain implements ModInitializer {
 	public void onInitialize() {
 		ItemRegistry.registerModItems();
 		BlockRegistry.registerModBlocks();
-		WorldGen.generateModWorldGen();
 		DimRegistry.register();
+		WorldGen.generateModWorldGen();
 		portal.registerPortals();
 	}
 }
