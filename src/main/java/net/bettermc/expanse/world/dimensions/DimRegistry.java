@@ -13,7 +13,7 @@ public class DimRegistry {
             new Identifier(ExpanseMain.MOD_ID, "moon"));
     public static RegistryKey<World> MOON_KEY = RegistryKey.of(Registry.WORLD_KEY, DIMENSION_KEY.getValue());
     private static final RegistryKey<DimensionType> DIMENSION_TYPE_KEY = RegistryKey.of(Registry.DIMENSION_TYPE_KEY,
-            new Identifier(ExpanseMain.MOD_ID, "moon_type.json"));
+            new Identifier(ExpanseMain.MOD_ID, "moon_type"));
 
 
     public static void register() {

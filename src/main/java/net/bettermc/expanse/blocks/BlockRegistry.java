@@ -18,6 +18,10 @@ public class BlockRegistry {
     public static final Block ENDER_ORE = registerBlock("ender_ore",
             new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
 
+    public static final Block MOON_STONE = registerBlock("moon_stone",
+            new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()), ItemGroup.MISC);
+    public static final Block MOON_SAND = registerBlock("moon_sand",
+            new Block(FabricBlockSettings.of(Material.SOIL).strength(6f).requiresTool()), ItemGroup.MISC);
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
