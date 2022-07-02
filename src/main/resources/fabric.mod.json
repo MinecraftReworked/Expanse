@@ -23,6 +23,7 @@
     ]
   },
   "mixins": [
+    "expanse.mixins.json"
   ],
 
   "depends": {
