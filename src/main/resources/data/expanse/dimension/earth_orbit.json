@@ -1,0 +1,11 @@
+{
+  "type": "expanse:earth_orbit_type",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "expanse:orbit",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "expanse:orbit"
+    }
+  }
+}

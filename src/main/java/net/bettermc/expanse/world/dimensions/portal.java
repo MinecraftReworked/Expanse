@@ -12,5 +12,11 @@ public class portal {
                     .destDimID(DimRegistry.MOON_KEY.getValue())
                     .tintColor(150, 200, 60)
                     .registerPortal();
+         CustomPortalBuilder.beginPortal()
+                 .frameBlock(Blocks.DIRT)
+                 .destDimID(DimRegistry.EARTH_ORBIT_KEY.getValue())
+                 .tintColor(150, 200, 60)
+                 .registerPortal();
         }
+
     }

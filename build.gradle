@@ -13,9 +13,6 @@ group = project.maven_group
 
 repositories {
 	maven {url = "https://maven.kyrptonaught.dev"}
-	maven { url "https://maven.shedaniel.me/" }
-	maven { url "https://maven.terraformersmc.com" }
-	maven { url 'https://maven.blamejared.com' }
 
 
 }
