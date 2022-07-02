@@ -2,6 +2,8 @@ package net.bettermc.expanse;
 
 import net.bettermc.expanse.blocks.BlockRegistry;
 import net.bettermc.expanse.items.ItemRegistry;
+import net.bettermc.expanse.world.dimensions.DimRegistry;
+import net.bettermc.expanse.world.dimensions.portal;
 import net.bettermc.expanse.world.gen.WorldGen;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ public class ExpanseMain implements ModInitializer {
 		ItemRegistry.registerModItems();
 		BlockRegistry.registerModBlocks();
 		WorldGen.generateModWorldGen();
-
+		DimRegistry.register();
+		portal.registerPortals();
 	}
 }
