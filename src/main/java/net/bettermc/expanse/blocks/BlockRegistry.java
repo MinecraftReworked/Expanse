@@ -30,7 +30,7 @@ public class BlockRegistry {
 
 // PLANET BLOCKS
     public static final Block MOON_STONE = registerBlock("moon_stone",
-            new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.STONE).strength(6f).requiresTool()), ItemGroup.MISC);
     public static final Block MOON_SAND = registerBlock("moon_sand",
             new Block(FabricBlockSettings.of(Material.SOIL).strength(6f).requiresTool()), ItemGroup.MISC);
 

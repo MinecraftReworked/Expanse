@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "expanse:uranium_ore",
+    "expanse:deepslate_uranium_ore",
+    "expanse:osmium_ore",
+    "expanse:deepslate_osmium_ore",
+    "expanse:osmium_block",
+    "expanse:moon_stone"
+
+  ]
+}
