@@ -9,6 +9,7 @@
 - Dimension Registry (Orbit, Moon, Mars)
 - Item/Block Registry
 - Ore Registry
+- Villager Registry
 
 **Coming Soon** 
 - More dimensions - Medium Priority
@@ -17,8 +18,7 @@
 - Armor - High Priority
 - Structures - High Priority
 - Rockets to access space Dims - VERY HIGH PRIORITY
-- Entity Registry
-- Space Villagers (In-progress)
+- Entity Registry (GeckoLib)
 
 
 ### Required Mods
