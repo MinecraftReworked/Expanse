@@ -20,10 +20,6 @@ public class VillagerRegistry {
     public static final VillagerProfession ALIEN_LIBRARIAN = registerProfession("alienlibrarian",
             RegistryKey.of(Registry.POINT_OF_INTEREST_TYPE_KEY, new Identifier(ExpanseMain.MOD_ID, "alien_librarian_poi")));
 
-    public static final PointOfInterestType ALIEN_MASON_POI = registerPOI("alien_librarian_poi", Blocks.LECTERN);//SETUP POI BLOCK LATER
-
-    public static final VillagerProfession ALIEN_MASON = registerProfession("alienmason",
-            RegistryKey.of(Registry.POINT_OF_INTEREST_TYPE_KEY, new Identifier(ExpanseMain.MOD_ID, "alien_mason_poi")));
 
 
     public static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type) {
