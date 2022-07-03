@@ -1,6 +1,7 @@
 package net.bettermc.expanse;
 
 import net.bettermc.expanse.blocks.BlockRegistry;
+import net.bettermc.expanse.blocks.entity.BlockEntityRegistry;
 import net.bettermc.expanse.items.ItemRegistry;
 import net.bettermc.expanse.util.ModRegistries;
 import net.bettermc.expanse.villager.VillagerRegistry;
@@ -20,6 +21,8 @@ public class ExpanseMain implements ModInitializer {
 	public void onInitialize() {
 		ItemRegistry.registerModItems();
 		BlockRegistry.registerModBlocks();
+		BlockEntityRegistry.registerAllEntities();
+
 		ModRegistries.registerModStuffs();
 		DimRegistry.register();
 		WorldGen.generateModWorldGen();

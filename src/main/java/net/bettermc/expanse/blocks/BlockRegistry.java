@@ -1,6 +1,7 @@
 package net.bettermc.expanse.blocks;
 
 import net.bettermc.expanse.ExpanseMain;
+import net.bettermc.expanse.blocks.custom.ElectricFurnaceBlock;
 import net.bettermc.expanse.items.ModItemGroups;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -35,9 +36,13 @@ public class BlockRegistry {
     public static final Block MOON_SAND = registerBlock("moon_sand",
             new Block(FabricBlockSettings.of(Material.SOIL).strength(6f).requiresTool()), ModItemGroups.ORES);
 
+    public static final Block ELECTRIC_FURNACE = registerBlock("electric_furnace",
+            new ElectricFurnaceBlock(FabricBlockSettings.of(Material.METAL).nonOpaque()), ModItemGroups.TOOLS);
+
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
         return Registry.register(Registry.BLOCK, new Identifier(ExpanseMain.MOD_ID, name), block);
+
     }
 
     private static Item registerBlockItem(String name, Block block, ItemGroup group) {
