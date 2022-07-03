@@ -1,6 +1,7 @@
 package net.bettermc.expanse.blocks;
 
 import net.bettermc.expanse.ExpanseMain;
+import net.bettermc.expanse.items.ModItemGroups;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -13,26 +14,26 @@ import net.minecraft.util.registry.Registry;
 
 public class BlockRegistry {
     public static final Block STEEL_BLOCK = registerBlock("steel_block",
-            new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()), ModItemGroups.ORES);
 
     public static final Block OSMIUM_ORE = registerBlock("osmium_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES);
     public static final Block OSMIUM_BLOCK = registerBlock("osmium_block",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES);
     public static final Block DEEPSLATE_OSMIUM_ORE = registerBlock("deepslate_osmium_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES);
 
 
     public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES);
     public static final Block URANIUM_ORE = registerBlock("uranium_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES);
 
 // PLANET BLOCKS
     public static final Block MOON_STONE = registerBlock("moon_stone",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(6f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.STONE).strength(6f).requiresTool()), ModItemGroups.ORES);
     public static final Block MOON_SAND = registerBlock("moon_sand",
-            new Block(FabricBlockSettings.of(Material.SOIL).strength(6f).requiresTool()), ItemGroup.MISC);
+            new Block(FabricBlockSettings.of(Material.SOIL).strength(6f).requiresTool()), ModItemGroups.ORES);
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);

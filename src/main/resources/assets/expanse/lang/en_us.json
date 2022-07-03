@@ -20,9 +20,12 @@
 
   "entity.minecraft.villager.alienlibrarian": "Alien Librarian",
 
+  "item.expanse.osmium_pickaxe": "Osmium Pickaxe",
 
 
 
 
-  "itemGroup.expanse.items": "Expanse Items"
+  "itemGroup.expanse.ores": "Expanse Ores",
+  "itemGroup.expanse.tools": "Expanse Tools"
+
 }
