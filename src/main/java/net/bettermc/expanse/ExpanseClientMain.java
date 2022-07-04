@@ -11,9 +11,6 @@ import net.minecraft.client.render.RenderLayer;
 public class ExpanseClientMain implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.ELECTRIC_FURNACE, RenderLayer.getCutout());
-
         ScreenRegistry.register(ModScreenHandlers.ELECTRIC_FURNACE_SCREEN_HANDLER, ElectricFurnaceScreen::new);
-
     }
-
 }

@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "net.bettermc.expanse.ExpanseMain"
+    ],
+    "client": [
+      "net.bettermc.expanse.ExpanseClientMain"
     ]
   },
   "mixins": [],
