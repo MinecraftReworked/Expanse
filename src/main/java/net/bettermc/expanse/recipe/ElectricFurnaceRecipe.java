@@ -24,7 +24,7 @@ public class ElectricFurnaceRecipe implements Recipe<SimpleInventory> {
 
     @Override
     public boolean matches(SimpleInventory inventory, World world) {
-        if (recipeItems.get(0).test(inventory.getStack(1))) {
+        if(recipeItems.get(0).test(inventory.getStack(1))) {
             return recipeItems.get(1).test(inventory.getStack(2));
         }
 
@@ -62,16 +62,14 @@ public class ElectricFurnaceRecipe implements Recipe<SimpleInventory> {
     }
 
     public static class Type implements RecipeType<ElectricFurnaceRecipe> {
-        private Type() {
-        }
-
+        private Type() { }
         public static final Type INSTANCE = new Type();
-        public static final String ID = "electric_furance";
+        public static final String ID = "electric_furnace";
     }
 
     public static class Serializer implements RecipeSerializer<ElectricFurnaceRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "orichalcum_blaster";
+        public static final String ID = "electric_furnace";
         // this is the name given in the json file
 
         @Override

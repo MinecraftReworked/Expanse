@@ -15,5 +15,6 @@ public class BlockEntityRegistry {
                 new Identifier(ExpanseMain.MOD_ID, "electric_furnace"),
                 FabricBlockEntityTypeBuilder.create(ElectricFurnaceEntity::new,
                         BlockRegistry.ELECTRIC_FURNACE).build(null));
+
     }
 }

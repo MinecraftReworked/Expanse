@@ -2,7 +2,7 @@ package net.bettermc.expanse.blocks.entity;
 
 import net.bettermc.expanse.items.inventory.ImplementedInventory;
 import net.bettermc.expanse.recipe.ElectricFurnaceRecipe;
-import net.bettermc.expanse.screen.ElectricFuranceScreenHandler;
+import net.bettermc.expanse.screen.ElectricFurnaceScreenHandler;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,8 +19,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class ElectricFurnaceEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
@@ -38,33 +38,20 @@ public class ElectricFurnaceEntity extends BlockEntity implements NamedScreenHan
         this.propertyDelegate = new PropertyDelegate() {
             public int get(int index) {
                 switch (index) {
-                    case 0:
-                        return ElectricFurnaceEntity.this.progress;
-                    case 1:
-                        return ElectricFurnaceEntity.this.maxProgress;
-                    case 2:
-                        return ElectricFurnaceEntity.this.fuelTime;
-                    case 3:
-                        return ElectricFurnaceEntity.this.maxFuelTime;
-                    default:
-                        return 0;
+                    case 0: return ElectricFurnaceEntity.this.progress;
+                    case 1: return ElectricFurnaceEntity.this.maxProgress;
+                    case 2: return ElectricFurnaceEntity.this.fuelTime;
+                    case 3: return ElectricFurnaceEntity.this.maxFuelTime;
+                    default: return 0;
                 }
             }
 
             public void set(int index, int value) {
-                switch (index) {
-                    case 0:
-                        ElectricFurnaceEntity.this.progress = value;
-                        break;
-                    case 1:
-                        ElectricFurnaceEntity.this.maxProgress = value;
-                        break;
-                    case 2:
-                        ElectricFurnaceEntity.this.fuelTime = value;
-                        break;
-                    case 3:
-                        ElectricFurnaceEntity.this.maxFuelTime = value;
-                        break;
+                switch(index) {
+                    case 0: ElectricFurnaceEntity.this.progress = value; break;
+                    case 1: ElectricFurnaceEntity.this.maxProgress = value; break;
+                    case 2: ElectricFurnaceEntity.this.fuelTime = value; break;
+                    case 3: ElectricFurnaceEntity.this.maxFuelTime = value; break;
                 }
             }
 
@@ -81,13 +68,13 @@ public class ElectricFurnaceEntity extends BlockEntity implements NamedScreenHan
 
     @Override
     public Text getDisplayName() {
-        return Text.literal("Orichalcum Blaster");
+        return Text.literal("Electric Furnace");
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new ElectricFuranceScreenHandler(syncId, inv, this, this.propertyDelegate);
+        return new ElectricFurnaceScreenHandler(syncId, inv, this, this.propertyDelegate);
     }
 
     @Override
@@ -109,24 +96,24 @@ public class ElectricFurnaceEntity extends BlockEntity implements NamedScreenHan
     }
 
     private void consumeFuel() {
-        if (!getStack(0).isEmpty()) {
+        if(!getStack(0).isEmpty()) {
             this.fuelTime = FuelRegistry.INSTANCE.get(this.removeStack(0, 1).getItem());
             this.maxFuelTime = this.fuelTime;
         }
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, ElectricFurnaceEntity entity) {
-        if (isConsumingFuel(entity)) {
+        if(isConsumingFuel(entity)) {
             entity.fuelTime--;
         }
 
-        if (hasRecipe(entity)) {
-            if (hasFuelInFuelSlot(entity) && !isConsumingFuel(entity)) {
+        if(hasRecipe(entity)) {
+            if(hasFuelInFuelSlot(entity) && !isConsumingFuel(entity)) {
                 entity.consumeFuel();
             }
-            if (isConsumingFuel(entity)) {
+            if(isConsumingFuel(entity)) {
                 entity.progress++;
-                if (entity.progress > entity.maxProgress) {
+                if(entity.progress > entity.maxProgress) {
                     craftItem(entity);
                 }
             }
@@ -167,9 +154,9 @@ public class ElectricFurnaceEntity extends BlockEntity implements NamedScreenHan
         Optional<ElectricFurnaceRecipe> match = world.getRecipeManager()
                 .getFirstMatch(ElectricFurnaceRecipe.Type.INSTANCE, inventory, world);
 
-        if (match.isPresent()) {
-            entity.removeStack(1, 1);
-            entity.removeStack(2, 1);
+        if(match.isPresent()) {
+            entity.removeStack(1,1);
+            entity.removeStack(2,1);
 
             entity.setStack(3, new ItemStack(match.get().getOutput().getItem(),
                     entity.getStack(3).getCount() + 1));

@@ -1,5 +1,6 @@
 package net.bettermc.expanse.screen;
 
+
 import net.bettermc.expanse.screen.slot.ModFuelSlot;
 import net.bettermc.expanse.screen.slot.ModResultSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,16 +14,16 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class ElectricFuranceScreenHandler extends ScreenHandler {
+public class ElectricFurnaceScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final World world;
     private final PropertyDelegate propertyDelegate;
 
-    public ElectricFuranceScreenHandler(int syncId, PlayerInventory playerInventory) {
+    public ElectricFurnaceScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(4), new ArrayPropertyDelegate(4));
     }
 
-    public ElectricFuranceScreenHandler(int syncId, PlayerInventory playerInventory,
+    public ElectricFurnaceScreenHandler(int syncId, PlayerInventory playerInventory,
                                           Inventory inventory, PropertyDelegate delegate) {
         super(ModScreenHandlers.ELECTRIC_FURNACE_SCREEN_HANDLER, syncId);
         checkSize(inventory, 4);
