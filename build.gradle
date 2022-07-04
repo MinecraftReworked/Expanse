@@ -8,7 +8,9 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven {url = "https://maven.kyrptonaught.dev"}
+	maven {
+		url = "https://maven.kyrptonaught.dev"
+	}
 	maven {
 		name = "Modrinth"
 		url = "https://api.modrinth.com/maven"
