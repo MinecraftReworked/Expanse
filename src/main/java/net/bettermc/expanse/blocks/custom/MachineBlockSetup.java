@@ -1,11 +1,7 @@
 package net.bettermc.expanse.blocks.custom;
 
 import net.bettermc.expanse.blocks.entity.BlockEntitySetup;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -17,33 +13,21 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+
 import java.util.function.ToIntFunction;
 
-public abstract class MachineBlockSetup extends BlockWithEntity{
+public abstract class MachineBlockSetup extends BlockWithEntity {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty LIT = Properties.LIT;
 
     public MachineBlockSetup(Settings settings) {
         super(settings.luminance(getLuminance()));
         this.setDefaultState(this.buildDefaultState());
-    }
-
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return (entityWorld, pos, entityState, blockEntity) -> {
-            if (blockEntity instanceof BlockEntitySetup machine) {
-                machine.tick();
-            }
-        };
     }
 
     protected BlockState buildDefaultState() {
@@ -67,34 +51,25 @@ public abstract class MachineBlockSetup extends BlockWithEntity{
         return false;
     }
 
-    @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
-            BlockEntitySetup blockEntity = (BlockEntitySetup) world.getBlockEntity(pos);
+    private static ToIntFunction<BlockState> getLuminance() {
+        return (blockState) -> blockState.contains(LIT) ? (blockState.get(LIT) ? 12 : 0) : 0;
+    }
 
-            if (blockEntity != null) {
-                player.openHandledScreen(blockEntity);
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+        World world, BlockState state,
+        BlockEntityType<T> type
+    ) {
+        return (entityWorld, pos, entityState, blockEntity) -> {
+            if (blockEntity instanceof BlockEntitySetup machine) {
+                machine.tick();
             }
-        }
-        return ActionResult.SUCCESS;
+        };
     }
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        if (this.useFacing()) {
-            return state.with(FACING, rotation.rotate(state.get(FACING)));
-        } else {
-            return state;
-        }
-    }
-
-    private static ToIntFunction<BlockState> getLuminance() {
-        return (blockState) -> blockState.contains(LIT) ? (blockState.get(LIT) ? 12 : 0) : 0;
     }
 
     @Override
@@ -114,8 +89,38 @@ public abstract class MachineBlockSetup extends BlockWithEntity{
         }
     }
 
-    public boolean removeOutput() {
-        return false;
+    @Override
+    public ActionResult onUse(
+        BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
+        BlockHitResult hit
+    ) {
+        if (!world.isClient) {
+            BlockEntitySetup blockEntity = (BlockEntitySetup) world.getBlockEntity(pos);
+
+            if (blockEntity != null) {
+                player.openHandledScreen(blockEntity);
+            }
+        }
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public PistonBehavior getPistonBehavior(BlockState state) {
+        return PistonBehavior.PUSH_ONLY;
+    }
+
+    @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        if (this.useFacing()) {
+            return state.with(FACING, rotation.rotate(state.get(FACING)));
+        } else {
+            return state;
+        }
     }
 
     @Override
@@ -124,8 +129,21 @@ public abstract class MachineBlockSetup extends BlockWithEntity{
     }
 
     @Override
-    public PistonBehavior getPistonBehavior(BlockState state) {
-        return PistonBehavior.PUSH_ONLY;
+    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+
+        return blockEntity instanceof BlockEntitySetup ? ScreenHandler.calculateComparatorOutput(blockEntity) : 0;
+    }
+
+    public boolean removeOutput() {
+        return false;
+    }
+
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        BlockState state = this.getDefaultState();
+
+        return this.useFacing() ? state.with(FACING, ctx.getPlayerFacing().getOpposite()) : state;
     }
 
     @Override
@@ -139,24 +157,5 @@ public abstract class MachineBlockSetup extends BlockWithEntity{
         if (this.useLit()) {
             builder.add(LIT);
         }
-    }
-
-    @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState state = this.getDefaultState();
-
-        return this.useFacing() ? state.with(FACING, ctx.getPlayerFacing().getOpposite()) : state;
-    }
-
-    @Override
-    public boolean hasComparatorOutput(BlockState state) {
-        return true;
-    }
-
-    @Override
-    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-
-        return blockEntity instanceof BlockEntitySetup ? ScreenHandler.calculateComparatorOutput(blockEntity) : 0;
     }
 }

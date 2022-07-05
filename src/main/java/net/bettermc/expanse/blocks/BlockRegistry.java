@@ -1,9 +1,7 @@
 package net.bettermc.expanse.blocks;
 
 import net.bettermc.expanse.ExpanseMain;
-import net.bettermc.expanse.blocks.custom.ElectricFurnaceBlock;
 import net.bettermc.expanse.items.ModItemGroups;
-import net.bettermc.expanse.util.ModIdentifier;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -19,45 +17,50 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BlockRegistry {
-    public static Set<Block> blocks = new HashSet<>();
-
     public static final Block STEEL_BLOCK = registerBlock("steel_block",
-            new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()),ModItemGroups.ORES);
-
+        new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()), ModItemGroups.ORES
+    );
     public static final Block OSMIUM_ORE = registerBlock("osmium_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()),ModItemGroups.ORES);
+        new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
     public static final Block OSMIUM_BLOCK = registerBlock("osmium_block",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()),ModItemGroups.ORES);
+        new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
     public static final Block DEEPSLATE_OSMIUM_ORE = registerBlock("deepslate_osmium_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()),ModItemGroups.ORES);
-
-
+        new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
     public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()),ModItemGroups.ORES);
+        new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
     public static final Block URANIUM_ORE = registerBlock("uranium_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()),ModItemGroups.ORES);
-
-// PLANET BLOCKS
+        new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    // PLANET BLOCKS
     public static final Block MOON_STONE = registerBlock("moon_stone",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(6f).requiresTool()),ModItemGroups.ORES);
+        new Block(FabricBlockSettings.of(Material.STONE).strength(6f).requiresTool()), ModItemGroups.ORES
+    );
     public static final Block MOON_SAND = registerBlock("moon_sand",
-            new Block(FabricBlockSettings.of(Material.SOIL).strength(6f).requiresTool()), ModItemGroups.ORES);
-
-    public static final Block ELECTRIC_FURNACE = registerBlock("electric_furnace", new FurnaceBlock(FabricBlockSettings.of(Material.STONE).strength(6f).requiresTool()),ModItemGroups.TOOLS);
-
-
+        new Block(FabricBlockSettings.of(Material.SOIL).strength(6f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block ELECTRIC_FURNACE = registerBlock("electric_furnace",
+        new FurnaceBlock(FabricBlockSettings.of(Material.STONE)
+                                            .strength(6f)
+                                            .requiresTool()), ModItemGroups.TOOLS
+    );
+    public static Set<Block> blocks = new HashSet<>();
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
         return Registry.register(Registry.BLOCK, new Identifier(ExpanseMain.MOD_ID, name), block);
-
     }
+
     private static Item registerBlockItem(String name, Block block, ItemGroup group) {
         return Registry.register(Registry.ITEM, new Identifier(ExpanseMain.MOD_ID, name),
-                new BlockItem(block, new FabricItemSettings().group(group)));
+            new BlockItem(block, new FabricItemSettings().group(group))
+        );
     }
+
     public static void registerModBlocks() {
         System.out.println("Registering Mod Blocks for " + ExpanseMain.MOD_ID);
     }
-
 }

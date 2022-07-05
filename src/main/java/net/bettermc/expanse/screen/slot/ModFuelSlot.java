@@ -13,12 +13,12 @@ public class ModFuelSlot extends Slot {
 
     @Override
     public boolean canInsert(ItemStack stack) {
-        return AbstractFurnaceBlockEntity.canUseAsFuel(stack) || ModFuelSlot.isBucket(stack);
+        return AbstractFurnaceBlockEntity.canUseAsFuel(stack) || isBucket(stack);
     }
 
     @Override
     public int getMaxItemCount(ItemStack stack) {
-        return ModFuelSlot.isBucket(stack) ? 1 : super.getMaxItemCount(stack);
+        return isBucket(stack) ? 1 : super.getMaxItemCount(stack);
     }
 
     public static boolean isBucket(ItemStack stack) {

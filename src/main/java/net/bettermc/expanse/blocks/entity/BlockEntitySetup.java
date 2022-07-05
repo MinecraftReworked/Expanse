@@ -12,12 +12,10 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
@@ -28,12 +26,39 @@ import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.SimpleSidedEnergyContainer;
 
-public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory, SidedInventory {
+public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory,
+                                                                 SidedInventory
+{
+    public final SimpleSidedEnergyContainer energyStorage = new SimpleSidedEnergyContainer() {
+        @Override
+        public long getCapacity() {
+            return BlockEntitySetup.this.getMaxGeneration();
+        }
+
+        @Override
+        public long getMaxInsert(@Nullable Direction side) {
+            return BlockEntitySetup.this.getMaxEnergyInsert();
+        }
+
+        @Override
+        public long getMaxExtract(@Nullable Direction side) {
+            return BlockEntitySetup.this.getMaxEnergyExtract();
+        }
+
+        @Override
+        protected void onFinalCommit() {
+            BlockEntitySetup.this.markDirty();
+        }
+    };
     private final DefaultedList<ItemStack> inventory;
 
     public BlockEntitySetup(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
-        inventory = DefaultedList.ofSize(getInventorySize(), ItemStack.EMPTY);
+        this.inventory = DefaultedList.ofSize(this.getInventorySize(), ItemStack.EMPTY);
+    }
+
+    public int getInventorySize() {
+        return 0;
     }
 
     public void tick() {
@@ -45,49 +70,11 @@ public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerF
         return null;
     }
 
-    public final SimpleSidedEnergyContainer energyStorage = new SimpleSidedEnergyContainer() {
-        @Override
-        public long getCapacity() {
-            return getMaxGeneration();
-        }
-
-        @Override
-        public long getMaxInsert(@Nullable Direction side) {
-            return getMaxEnergyInsert();
-        }
-
-        @Override
-        public long getMaxExtract(@Nullable Direction side) {
-            return getMaxEnergyExtract();
-        }
-
-        @Override
-        protected void onFinalCommit() {
-            markDirty();
-        }
-    };
-
-    public boolean usesEnergy() {
-        return false;
-    }
-
-    public long getMaxGeneration() {
-        return 0;
-    }
-
-    public long getEnergyPerTick() {
-        return 0;
-    }
-
     public long getMaxEnergyInsert() {
         return 0;
     }
 
     public long getMaxEnergyExtract() {
-        return 0;
-    }
-
-    public int getInventorySize() {
         return 0;
     }
 
@@ -104,6 +91,14 @@ public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerF
             this.energyStorage.amount = this.getMaxGeneration();
         }
         this.markDirty();
+    }
+
+    public long getMaxGeneration() {
+        return 0;
+    }
+
+    public long getEnergyPerTick() {
+        return 0;
     }
 
     public boolean drainEnergy() {
@@ -124,11 +119,18 @@ public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerF
 
     // Send energy to surrounding machines.
     public void energyOut() {
-        if (usesEnergy()) {
+        if (this.usesEnergy()) {
             for (Direction direction : Direction.values()) {
-                EnergyStorageUtil.move(getSideEnergyStorage(direction), EnergyStorage.SIDED.find(world, pos.offset(direction), direction.getOpposite()), Long.MAX_VALUE, null);
+                EnergyStorageUtil.move(this.getSideEnergyStorage(direction), EnergyStorage.SIDED.find(
+                    this.world,
+                    this.pos.offset(direction), direction.getOpposite()
+                ), Long.MAX_VALUE, null);
             }
         }
+    }
+
+    public boolean usesEnergy() {
+        return false;
     }
 
     public EnergyStorage getSideEnergyStorage(@Nullable Direction side) {
@@ -145,16 +147,16 @@ public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerF
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable(getCachedState().getBlock().getTranslationKey());
+        return Text.translatable(this.getCachedState().getBlock().getTranslationKey());
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        if (getInventorySize() > 0) {
+        if (this.getInventorySize() > 0) {
             Inventories.readNbt(nbt, this.inventory);
         }
-        if (usesEnergy()) {
+        if (this.usesEnergy()) {
             this.energyStorage.amount = nbt.getLong("energy");
         }
     }
@@ -162,11 +164,11 @@ public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerF
     @Override
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        if (getInventorySize() > 0) {
+        if (this.getInventorySize() > 0) {
             Inventories.writeNbt(nbt, this.inventory);
         }
-        if (usesEnergy()) {
-            nbt.putLong("energy", energyStorage.amount);
+        if (this.usesEnergy()) {
+            nbt.putLong("energy", this.energyStorage.amount);
         }
     }
 
@@ -181,9 +183,20 @@ public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerF
         }
     }
 
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return this.createNbt();
+    }
+
     @Override
     public int[] getAvailableSlots(Direction side) {
-        int[] result = new int[getItems().size()];
+        int[] result = new int[this.getItems().size()];
         for (int i = 0; i < result.length; i++) {
             result[i] = i;
         }
@@ -203,18 +216,7 @@ public class BlockEntitySetup extends BlockEntity implements NamedScreenHandlerF
 
     @Override
     public DefaultedList<ItemStack> getItems() {
-        return inventory;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
-    }
-
-    @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return this.createNbt();
+        return this.inventory;
     }
 }
 

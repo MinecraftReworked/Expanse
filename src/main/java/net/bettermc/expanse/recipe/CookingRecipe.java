@@ -6,8 +6,8 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public abstract class CookingRecipe extends ModRecipe{
-    private ItemStack output;
+public abstract class CookingRecipe extends ModRecipe {
+    private final ItemStack output;
     private short cookTime;
 
     public CookingRecipe(Identifier id, Ingredient input, ItemStack output, short cookTime) {

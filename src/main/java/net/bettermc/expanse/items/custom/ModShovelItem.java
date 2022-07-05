@@ -1,6 +1,5 @@
 package net.bettermc.expanse.items.custom;
 
-import net.minecraft.item.HoeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;
 

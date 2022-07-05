@@ -7,17 +7,26 @@ import net.minecraft.util.registry.Registry;
 
 public class ModRecipes {
 
-    public static ModRecipeType<FurnaceRecipe> FURANCE_RECIPE;
+    private static ModRecipeType<FurnaceRecipe> furnaceRecipe = null;
+    private static RecipeSerializer<FurnaceRecipe> furnaceSerializer = null;
 
-    public static RecipeSerializer<FurnaceRecipe> FURNACE_SERIALIZER;
+    public static ModRecipeType<FurnaceRecipe> getFurnaceRecipe() {
+        return StateConditions.validateState(furnaceRecipe);
+    }
+
+    public static RecipeSerializer<FurnaceRecipe> getFurnaceSerializer() {
+        return StateConditions.validateState(furnaceSerializer);
+    }
 
     public static void register() {
-
-        FURANCE_RECIPE = register(new ModRecipeType<>(new ModIdentifier("furnace")));
-
+        furnaceRecipe = register(new ModRecipeType<>(new ModIdentifier("furnace")));
 
         // Recipe Serializers.
-        FURNACE_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, new ModIdentifier("furnace"), new FurnaceRecipe.Serializer());
+        furnaceSerializer = Registry.register(
+            Registry.RECIPE_SERIALIZER,
+            new ModIdentifier("furnace"),
+            new FurnaceRecipe.Serializer()
+        );
     }
 
     private static <T extends ModRecipeType<?>> T register(T recipe) {

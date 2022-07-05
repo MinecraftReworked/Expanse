@@ -1,9 +1,8 @@
 package net.bettermc.expanse.blocks.custom;
 
 import net.bettermc.expanse.blocks.entity.ElectricFurnaceEntity;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-
 
 public class ElectricFurnaceBlock extends MachineBlockSetup {
 
