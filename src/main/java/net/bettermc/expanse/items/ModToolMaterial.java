@@ -1,6 +1,5 @@
 package net.bettermc.expanse.items;
 
-
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Lazy;
@@ -9,7 +8,7 @@ import java.util.function.Supplier;
 
 public enum ModToolMaterial implements ToolMaterial {
     OSMIUM(2, 450, 2.0F, 0.0F, 15, () ->
-         Ingredient.ofItems(ItemRegistry.OSMIUM_INGOT));
+                                       Ingredient.ofItems(ItemRegistry.OSMIUM_INGOT));
 
     private final int miningLevel;
     private final int itemDurability;
@@ -18,7 +17,10 @@ public enum ModToolMaterial implements ToolMaterial {
     private final int enchantability;
     private final Lazy<Ingredient> repairIngredient;
 
-     ModToolMaterial(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Supplier repairIngredient) {
+    ModToolMaterial(
+        int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability,
+        Supplier repairIngredient
+    ) {
         this.miningLevel = miningLevel;
         this.itemDurability = itemDurability;
         this.miningSpeed = miningSpeed;
@@ -48,7 +50,7 @@ public enum ModToolMaterial implements ToolMaterial {
     }
 
     public Ingredient getRepairIngredient() {
-        return (Ingredient)this.repairIngredient.get();
+        return this.repairIngredient.get();
     }
 }
 

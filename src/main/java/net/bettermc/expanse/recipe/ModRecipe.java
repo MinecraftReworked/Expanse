@@ -1,6 +1,5 @@
 package net.bettermc.expanse.recipe;
 
-import net.bettermc.expanse.items.inventory.ImplementedInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
@@ -14,20 +13,20 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public abstract class ModRecipe implements Recipe<Inventory>, Predicate<ItemStack> {
-    protected Identifier id;
     protected final List<Ingredient> inputs = new ArrayList<>();
+    protected Identifier id;
     protected List<Integer> stackCounts;
 
-    public ModRecipe(Identifier id) {
+    protected ModRecipe(Identifier id) {
         this.id = id;
     }
 
-    public ModRecipe(Identifier id, Ingredient input) {
+    protected ModRecipe(Identifier id, Ingredient input) {
         this.id = id;
         this.inputs.add(input);
     }
 
-    public ModRecipe(Identifier id, List<Ingredient> input, List<Integer> stackCounts) {
+    protected ModRecipe(Identifier id, List<Ingredient> input, List<Integer> stackCounts) {
         this.id = id;
         this.inputs.addAll(input);
         this.stackCounts = stackCounts;
@@ -44,26 +43,25 @@ public abstract class ModRecipe implements Recipe<Inventory>, Predicate<ItemStac
     }
 
     @Override
-    public ItemStack getOutput() {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
     public boolean fits(int width, int height) {
         return true;
     }
 
     @Override
-    public Identifier getId() {
-        return this.id;
+    public ItemStack getOutput() {
+        return ItemStack.EMPTY;
     }
-
 
     @Override
     public DefaultedList<Ingredient> getIngredients() {
         DefaultedList<Ingredient> defaultedList = DefaultedList.of();
         defaultedList.addAll(this.inputs);
         return defaultedList;
+    }
+
+    @Override
+    public Identifier getId() {
+        return this.id;
     }
 
     public List<Integer> getStackCounts() {
@@ -79,5 +77,4 @@ public abstract class ModRecipe implements Recipe<Inventory>, Predicate<ItemStac
         }
         return false;
     }
-
 }

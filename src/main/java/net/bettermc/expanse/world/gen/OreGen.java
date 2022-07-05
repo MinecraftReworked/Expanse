@@ -7,9 +7,16 @@ import net.minecraft.world.gen.GenerationStep;
 
 public class OreGen {
     public static void generateOres() {
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),
-                GenerationStep.Feature.UNDERGROUND_ORES, Placement.OSMIUM_ORE_PLACED.getKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),
-                GenerationStep.Feature.UNDERGROUND_ORES, Placement.URANIUM_ORE_PLACED.getKey().get());
+        BiomeModifications.addFeature(
+            BiomeSelectors.foundInOverworld(),
+            GenerationStep.Feature.UNDERGROUND_ORES,
+            Placement.OSMIUM_ORE_PLACED.getKey().orElseThrow()
+        );
+
+        BiomeModifications.addFeature(
+            BiomeSelectors.foundInOverworld(),
+            GenerationStep.Feature.UNDERGROUND_ORES,
+            Placement.URANIUM_ORE_PLACED.getKey().orElseThrow()
+        );
     }
 }

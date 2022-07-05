@@ -14,36 +14,44 @@ public class ModRegistries {
     }
 
     private static void registerCustomTrades() {
-        TradeOfferHelper.registerVillagerOffers(VillagerRegistry.ALIEN_LIBRARIAN,1,
-                factories -> {
-                    factories.add((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 6),
-                            new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
-                            12,7,0.08f));
-                    factories.add((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 12),
-                            new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
-                            12,7,0.08f));
-                    factories.add((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 26),
-                            new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
-                            12,7,0.08f));
-                });
+        TradeOfferHelper.registerVillagerOffers(VillagerRegistry.ALIEN_LIBRARIAN, 1,
+            factories -> {
+                factories.add((entity, random) -> new TradeOffer(
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
+                    12, 7, 0.08f
+                ));
+                factories.add((entity, random) -> new TradeOffer(
+                    new ItemStack(Items.EMERALD, 12),
+                    new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
+                    12, 7, 0.08f
+                ));
+                factories.add((entity, random) -> new TradeOffer(
+                    new ItemStack(Items.EMERALD, 26),
+                    new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
+                    12, 7, 0.08f
+                ));
+            }
+        );
 
-        TradeOfferHelper.registerVillagerOffers(VillagerRegistry.ALIEN_LIBRARIAN,2,
-                factories -> {
-                    factories.add((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 64),
-                            new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
-                            12,7,0.08f));
-                    factories.add((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
-                            new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
-                            12,7,0.08f));
-                    factories.add((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 50),
-                            new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
-                            12,7,0.08f));
-                });
+        TradeOfferHelper.registerVillagerOffers(VillagerRegistry.ALIEN_LIBRARIAN, 2,
+            factories -> {
+                factories.add((entity, random) -> new TradeOffer(
+                    new ItemStack(Items.EMERALD, 64),
+                    new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
+                    12, 7, 0.08f
+                ));
+                factories.add((entity, random) -> new TradeOffer(
+                    new ItemStack(Items.EMERALD, 5),
+                    new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
+                    12, 7, 0.08f
+                ));
+                factories.add((entity, random) -> new TradeOffer(
+                    new ItemStack(Items.EMERALD, 50),
+                    new ItemStack(BlockRegistry.DEEPSLATE_URANIUM_ORE, 1),
+                    12, 7, 0.08f
+                ));
+            }
+        );
     }
 }

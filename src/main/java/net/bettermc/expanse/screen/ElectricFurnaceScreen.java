@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class ElectricFurnaceScreen extends HandledScreen<ElectricFurnaceScreenHandler> {
     private static final Identifier TEXTURE =
-            new Identifier(ExpanseMain.MOD_ID, "textures/gui/electricfurnace_gui.png");
+        new Identifier(ExpanseMain.MOD_ID, "textures/gui/electricfurnace_gui.png");
 
     public ElectricFurnaceScreen(ElectricFurnaceScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -20,7 +20,14 @@ public class ElectricFurnaceScreen extends HandledScreen<ElectricFurnaceScreenHa
     @Override
     protected void init() {
         super.init();
-        titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
+        this.titleX = (this.backgroundWidth - this.textRenderer.getWidth(this.title)) / 2;
+    }
+
+    @Override
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        this.renderBackground(matrices);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.drawMouseoverTooltip(matrices, mouseX, mouseY);
     }
 
     @Override
@@ -28,24 +35,18 @@ public class ElectricFurnaceScreen extends HandledScreen<ElectricFurnaceScreenHa
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
-        drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        int x = (this.width - this.backgroundWidth) / 2;
+        int y = (this.height - this.backgroundHeight) / 2;
+        this.drawTexture(matrices, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
-        if(handler.isCrafting()) {
-            drawTexture(matrices, x + 84, y + 22, 176, 14, handler.getScaledProgress(), 36);
+        if (this.handler.isCrafting()) {
+            this.drawTexture(matrices, x + 84, y + 22, 176, 14, this.handler.getScaledProgress(), 36);
         }
 
-        if(handler.hasFuel()) {
-            drawTexture(matrices, x + 18, y + 33 + 14 - handler.getScaledFuelProgress(), 176,
-                    14 - handler.getScaledFuelProgress(), 14, handler.getScaledFuelProgress());
+        if (this.handler.hasFuel()) {
+            this.drawTexture(matrices, x + 18, y + 33 + 14 - this.handler.getScaledFuelProgress(), 176,
+                14 - this.handler.getScaledFuelProgress(), 14, this.handler.getScaledFuelProgress()
+            );
         }
-    }
-
-    @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        renderBackground(matrices);
-        super.render(matrices, mouseX, mouseY, delta);
-        drawMouseoverTooltip(matrices, mouseX, mouseY);
     }
 }

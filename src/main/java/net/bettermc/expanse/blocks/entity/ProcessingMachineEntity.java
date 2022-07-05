@@ -2,16 +2,15 @@ package net.bettermc.expanse.blocks.entity;
 
 import net.bettermc.expanse.recipe.CookingRecipe;
 import net.bettermc.expanse.recipe.ModRecipeType;
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
-public abstract class ProcessingMachineEntity extends BlockEntitySetup{
+public abstract class ProcessingMachineEntity extends BlockEntitySetup {
     protected short cookTime;
     protected short cookTimeTotal;
 
@@ -25,9 +24,7 @@ public abstract class ProcessingMachineEntity extends BlockEntitySetup{
     }
 
     @Override
-    public boolean usesEnergy() {
-        return true;
-    }
+    public abstract int getInventorySize();
 
     @Override
     public abstract long getMaxGeneration();
@@ -36,7 +33,9 @@ public abstract class ProcessingMachineEntity extends BlockEntitySetup{
     public abstract long getEnergyPerTick();
 
     @Override
-    public abstract int getInventorySize();
+    public boolean usesEnergy() {
+        return true;
+    }
 
     @Override
     public void readNbt(NbtCompound nbt) {
@@ -76,10 +75,13 @@ public abstract class ProcessingMachineEntity extends BlockEntitySetup{
         this.markDirty();
     }
 
-    public <T extends CookingRecipe> CookingRecipe createRecipe(ModRecipeType<T> type, ItemStack testStack, boolean checkOutput) {
-        stopCooking();
+    public <T extends CookingRecipe> CookingRecipe createRecipe(
+        ModRecipeType<T> type, ItemStack testStack,
+        boolean checkOutput
+    ) {
+        this.stopCooking();
 
-        CookingRecipe recipe = type.findFirst(this.world, f -> f.test(testStack));
+        CookingRecipe recipe = type.findFirst(this.world, p -> p.test(testStack));
 
         if (recipe != null) {
 
@@ -87,7 +89,11 @@ public abstract class ProcessingMachineEntity extends BlockEntitySetup{
             if (checkOutput) {
                 ItemStack outputSlot = this.getStack(1);
                 ItemStack output = recipe.getOutput();
-                if (!outputSlot.isEmpty() && !outputSlot.getItem().equals(recipe.getOutput().getItem()) || outputSlot.getCount() + output.getCount() > outputSlot.getMaxCount()) {
+
+                if (!outputSlot.isEmpty()
+                        && !outputSlot.getItem()
+                                      .equals(recipe.getOutput()
+                                                    .getItem()) || outputSlot.getCount() + output.getCount() > outputSlot.getMaxCount()) {
                     return null;
                 }
             }
@@ -95,7 +101,6 @@ public abstract class ProcessingMachineEntity extends BlockEntitySetup{
             this.outputStack = recipe.getOutput();
             this.inputItem = testStack.getItem();
         }
-
         return recipe;
     }
 }

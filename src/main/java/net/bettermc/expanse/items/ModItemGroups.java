@@ -7,10 +7,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
-    public static final ItemGroup ORES = FabricItemGroupBuilder.build(new Identifier(ExpanseMain.MOD_ID, "ores"),
-            () -> new ItemStack(ItemRegistry.OSMIUM_INGOT));
-    public static final ItemGroup TOOLS = FabricItemGroupBuilder.build(new Identifier(ExpanseMain.MOD_ID, "tools"),
-            () -> new ItemStack(ItemRegistry.OSMIUM_PICKAXE));
-
-
+    public static final ItemGroup ORES = FabricItemGroupBuilder.build(
+        new Identifier(ExpanseMain.MOD_ID, "ores"),
+        () -> new ItemStack(ItemRegistry.OSMIUM_INGOT)
+    );
+    public static final ItemGroup TOOLS = FabricItemGroupBuilder.build(
+        new Identifier(ExpanseMain.MOD_ID, "tools"),
+        () -> new ItemStack(ItemRegistry.OSMIUM_PICKAXE)
+    );
 }

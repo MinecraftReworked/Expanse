@@ -2,9 +2,7 @@ package net.bettermc.expanse.blocks.entity;
 
 import net.bettermc.expanse.blocks.BlockEntityRegistry;
 import net.bettermc.expanse.recipe.CookingRecipe;
-import net.bettermc.expanse.recipe.ModRecipe;
 import net.bettermc.expanse.screen.ElectricFurnaceScreenHandler;
-import net.bettermc.expanse.screen.ModScreenHandlers;
 import net.bettermc.expanse.util.ModRecipes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,19 +15,19 @@ import net.minecraft.util.math.Direction;
 
 import javax.annotation.Nullable;
 
-public class ElectricFurnaceEntity extends ProcessingMachineEntity{
-    public PropertyDelegate propertyDelegate;
-    public int MAX_ENERGY = 50;
-    public int ENERGY_PER_TICK = 72;
+public class ElectricFurnaceEntity extends ProcessingMachineEntity {
+    public static final int MAX_ENERGY = 50;
+    public static final int ENERGY_PER_TICK = 72;
+    public PropertyDelegate propertyDelegate = null;
 
     public ElectricFurnaceEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.ELECTRIC_FURNACE_ENTITY, blockPos, blockState);
+        super(BlockEntityRegistry.getElectricFurnaceEntity(), blockPos, blockState);
     }
 
-    @Nullable
+    // Input and output.
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new ElectricFurnaceScreenHandler(syncId, inv, this, this.propertyDelegate);
+    public int getInventorySize() {
+        return 2;
     }
 
     @Override
@@ -43,14 +41,54 @@ public class ElectricFurnaceEntity extends ProcessingMachineEntity{
     }
 
     @Override
-    public long getMaxEnergyInsert() {
-        return ENERGY_PER_TICK * 32;
+    public void tick() {
+        assert this.world != null;
+
+        if (this.world.isClient() || !this.hasEnergy()) {
+            return;
+        }
+
+        ItemStack input = this.getStack(0);
+
+        if (input.isEmpty() || (!input.getItem().equals(this.inputItem) && this.inputItem != null)) {
+            if (this.outputStack == null) {
+                this.setActive(false);
+            } else {
+                this.stopCooking();
+            }
+            return;
+        }
+
+        this.setActive(true);
+
+        if (this.cookTime < this.cookTimeTotal) {
+            this.cookTime++;
+            this.drainEnergy();
+            return;
+        }
+        if (this.outputStack != null) {
+            input.decrement(1);
+            this.finishCooking();
+            return;
+        }
+
+        CookingRecipe recipe = this.createRecipe(ModRecipes.getFurnaceRecipe(), input, true);
+
+        if (recipe != null) {
+            this.cookTimeTotal = recipe.getCookTime();
+            this.cookTime = 0;
+        }
     }
 
-    // Input and output.
+    @Nullable
     @Override
-    public int getInventorySize() {
-        return 2;
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new ElectricFurnaceScreenHandler(syncId, inv, this, this.propertyDelegate);
+    }
+
+    @Override
+    public long getMaxEnergyInsert() {
+        return (long) ENERGY_PER_TICK << 5;
     }
 
     @Override
@@ -61,37 +99,5 @@ public class ElectricFurnaceEntity extends ProcessingMachineEntity{
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
         return slot == 1;
-    }
-
-    @Override
-    public void tick() {
-        if (!this.world.isClient) {
-            if (this.hasEnergy()) {
-                ItemStack input = this.getStack(0);
-                if (!input.isEmpty() && (input.getItem().equals(this.inputItem) || this.inputItem == null)) {
-                    this.setActive(true);
-                    if (this.cookTime < this.cookTimeTotal) {
-                        this.cookTime++;
-                        this.drainEnergy();
-
-                    } else if (this.outputStack != null) {
-                        input.decrement(1);
-                        this.finishCooking();
-
-                    } else {
-                        CookingRecipe recipe = this.createRecipe(ModRecipes.FURANCE_RECIPE, input, true);
-                        if (recipe != null) {
-                            this.cookTimeTotal = recipe.getCookTime();
-                            this.cookTime = 0;
-                        }
-                    }
-                } else if (this.outputStack != null) {
-                    this.stopCooking();
-                } else {
-                    this.setActive(false);
-                }
-
-            }
-        }
     }
 }
