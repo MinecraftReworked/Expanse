@@ -10,6 +10,8 @@
 - Item/Block Registry
 - Ore Registry
 - Villager Registry
+- Entity Registry (GeckoLib)
+- BlockEntity Registry
 
 **Coming Soon** 
 - More dimensions - Medium Priority
@@ -18,7 +20,6 @@
 - Armor - High Priority
 - Structures - High Priority
 - Rockets to access space Dims - VERY HIGH PRIORITY
-- Entity Registry (GeckoLib)
 
 
 ### Required Mods
