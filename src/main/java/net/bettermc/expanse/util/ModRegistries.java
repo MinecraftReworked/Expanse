@@ -18,7 +18,7 @@ public class ModRegistries {
     }
 
     private static void registerAttributes() {
-        FabricDefaultAttributeRegistry.register(ModEntities.MOONROVER, MoonRoverEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.MOONROVER, MoonRoverEntity.createMobAttributes());
     }
     private static void registerCustomTrades() {
         TradeOfferHelper.registerVillagerOffers(VillagerRegistry.ALIEN_LIBRARIAN, 1,

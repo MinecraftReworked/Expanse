@@ -1,19 +1,19 @@
 package net.bettermc.expanse.entity.custom;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -22,70 +22,75 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import javax.annotation.Nullable;
 
 public class MoonRoverEntity extends AnimalEntity implements IAnimatable {
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
 
-    public MoonRoverEntity(EntityType<? extends AnimalEntity> entityType, World world) {
-        super(entityType, world);
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.moonrover.driving", true));
+        return PlayState.CONTINUE;
+
+    }
+
+    public MoonRoverEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+        super(type, worldIn);
         this.ignoreCameraFrustum = true;
     }
 
-    public static DefaultAttributeContainer.Builder setAttributes() {
-        return AnimalEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0f)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0f)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f);
-    }
-
-
     @Override
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_DOLPHIN_AMBIENT;
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        if (!this.hasPassengers()) {
+            player.startRiding(this);
+            return super.interactMob(player, hand);
+        }
+        return super.interactMob(player, hand);
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_DOLPHIN_HURT;
+    protected void playStepSound(BlockPos pos, BlockState blockIn) {
     }
 
     @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_PIG_DEATH;
-    }
+    public void travel(Vec3d pos) {
+        if (this.isAlive()) {
+            if (this.hasPassengers()) {
+                LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+                this.setYaw(livingentity.getYaw());
+                this.prevYaw = this.getYaw();
+                this.setPitch(livingentity.getPitch() * 0.5F);
+                this.setRotation(this.getYaw(), this.getPitch());
+                this.bodyYaw = this.getYaw();
+                this.headYaw = this.bodyYaw;
+                float f = livingentity.sidewaysSpeed * 0.5F;
+                float f1 = livingentity.forwardSpeed;
+                if (f1 <= 0.0F) {
+                    f1 *= 0.25F;
+                }
 
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15f, 1.0f);
+                this.setMovementSpeed(0.3F);
+                super.travel(new Vec3d(f, pos.y, f1));
+            }
+        }
     }
 
     @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
+    public Entity getControllingPassenger() {
+        return this.getPassengerList().isEmpty() ? null : this.getPassengerList().get(0);
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController(this, "controller",
-                0, this::predicate));
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController<MoonRoverEntity>(this, "controller", 0, this::predicate));
     }
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return this.factory;
     }
 
-    // ANIMATIONS
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.moonrover.driving", true));
-            return PlayState.CONTINUE;
-        }
-
-       // event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.raccoon.idle", true));
-        return PlayState.CONTINUE;
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
     }
 }
+
