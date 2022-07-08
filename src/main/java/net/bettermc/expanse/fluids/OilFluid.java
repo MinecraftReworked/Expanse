@@ -1,7 +1,7 @@
 package net.bettermc.expanse.fluids;
 
 import net.bettermc.expanse.blocks.BlockRegistry;
-import net.bettermc.expanse.items.ItemRegistry;
+import net.bettermc.expanse.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
@@ -39,7 +39,7 @@ public abstract class OilFluid extends FlowableFluid {
     }
 
     public Item getBucketItem() {
-        return ItemRegistry.OIL_BUCKET;
+        return ModItems.OIL_BUCKET;
     }
 
     public void randomDisplayTick(World world, BlockPos pos, FluidState state, Random random) {

@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 public enum ModToolMaterial implements ToolMaterial {
     OSMIUM(2, 450, 2.0F, 0.0F, 15, () ->
-                                       Ingredient.ofItems(ItemRegistry.OSMIUM_INGOT));
+                                       Ingredient.ofItems(ModItems.OSMIUM_INGOT));
 
     private final int miningLevel;
     private final int itemDurability;

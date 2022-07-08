@@ -1,9 +1,12 @@
 package net.bettermc.expanse.entity.custom;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.DamageUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,6 +38,8 @@ public class MoonRoverEntity extends AnimalEntity implements IAnimatable {
     public MoonRoverEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
         this.ignoreCameraFrustum = true;
+        this.damage(DamageSource.DROWN, 0.00F);
+
     }
 
     @Override
@@ -66,7 +71,6 @@ public class MoonRoverEntity extends AnimalEntity implements IAnimatable {
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-
                 this.setMovementSpeed(0.3F);
                 super.travel(new Vec3d(f, pos.y, f1));
             }
