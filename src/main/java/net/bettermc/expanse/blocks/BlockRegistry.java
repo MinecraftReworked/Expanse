@@ -1,6 +1,8 @@
 package net.bettermc.expanse.blocks;
 
 import net.bettermc.expanse.ExpanseMain;
+import net.bettermc.expanse.blocks.custom.ModFluidBlock;
+import net.bettermc.expanse.fluids.ModFluids;
 import net.bettermc.expanse.items.ModItemGroups;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -88,8 +90,16 @@ public class BlockRegistry {
                                             .strength(6f)
                                             .requiresTool()), ModItemGroups.TOOLS
     );
+
+    public static final Block OIL_FLUID_BLOCK = registerBlockWithoutBlockItem("oil_fluid_block",
+            new ModFluidBlock(ModFluids.OIL_STILL, FabricBlockSettings.of(Material.WATER)
+                    .noCollision().nonOpaque().dropsNothing()), ModItemGroups.ORES);
+
     public static Set<Block> blocks = new HashSet<>();
 
+    private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
+        return Registry.register(Registry.BLOCK, new Identifier(ExpanseMain.MOD_ID, name), block);
+    }
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
         return Registry.register(Registry.BLOCK, new Identifier(ExpanseMain.MOD_ID, name), block);
@@ -100,6 +110,7 @@ public class BlockRegistry {
             new BlockItem(block, new FabricItemSettings().group(group))
         );
     }
+
 
     public static void registerModBlocks() {
         System.out.println("Registering Mod Blocks for " + ExpanseMain.MOD_ID);

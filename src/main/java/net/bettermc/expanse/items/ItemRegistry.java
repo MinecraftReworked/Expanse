@@ -1,8 +1,10 @@
 package net.bettermc.expanse.items;
 
 import net.bettermc.expanse.ExpanseMain;
+import net.bettermc.expanse.fluids.ModFluids;
 import net.bettermc.expanse.items.custom.ModPickaxeItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -62,6 +64,10 @@ public class ItemRegistry {
             "titanium_ingot",
             new Item(new FabricItemSettings().group(ModItemGroups.ORES))
     );
+
+    //buckets
+    public static final Item OIL_BUCKET = registerItem("oil_bucket",
+            new BucketItem(ModFluids.OIL_STILL, new FabricItemSettings().group(ModItemGroups.ORES).maxCount(1)));
 
 
 
