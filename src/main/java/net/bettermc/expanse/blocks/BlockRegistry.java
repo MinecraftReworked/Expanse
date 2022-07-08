@@ -35,6 +35,47 @@ public class BlockRegistry {
     public static final Block URANIUM_ORE = registerBlock("uranium_ore",
         new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
     );
+
+    public static final Block LEAD_ORE = registerBlock("lead_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block DEEPSLATE_LEAD_ORE = registerBlock("deepslate_lead_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block LEAD_BLOCK = registerBlock("lead_block",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+
+    public static final Block SILVER_ORE = registerBlock("silver_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block DEEPSLATE_SILVER_ORE = registerBlock("deepslate_silver_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block SILVER_BLOCK = registerBlock("silver_block",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+
+    public static final Block COBALT_ORE = registerBlock("cobalt_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block DEEPSLATE_COBALT_ORE = registerBlock("deepslate_cobalt_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block COBALT_BLOCK = registerBlock("cobalt_block",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+
+    public static final Block TITANIUM_ORE = registerBlock("titanium_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block DEEPSLATE_TITANIUM_ORE = registerBlock("deepslate_titanium_ore",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+    public static final Block TITANIUM_BLOCK = registerBlock("titanium_block",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(4.5f).requiresTool()), ModItemGroups.ORES
+    );
+
     // PLANET BLOCKS
     public static final Block MOON_STONE = registerBlock("moon_stone",
         new Block(FabricBlockSettings.of(Material.STONE).strength(6f).requiresTool()), ModItemGroups.ORES

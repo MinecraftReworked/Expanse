@@ -30,6 +30,42 @@ public class ItemRegistry {
         new Item(new FabricItemSettings().group(ModItemGroups.ORES))
     );
 
+    public static final Item RAW_SILVER = registerItem(
+            "raw_silver",
+            new Item(new FabricItemSettings().group(ModItemGroups.ORES))
+    );
+    public static final Item SILVER_INGOT = registerItem(
+            "silver_ingot",
+            new Item(new FabricItemSettings().group(ModItemGroups.ORES))
+    );
+    public static final Item RAW_LEAD = registerItem(
+            "raw_lead",
+            new Item(new FabricItemSettings().group(ModItemGroups.ORES))
+    );
+    public static final Item LEAD_INGOT = registerItem(
+            "silver_lead",
+            new Item(new FabricItemSettings().group(ModItemGroups.ORES))
+    );
+    public static final Item RAW_COBALT = registerItem(
+            "raw_cobalt",
+            new Item(new FabricItemSettings().group(ModItemGroups.ORES))
+    );
+    public static final Item COBALT_INGOT = registerItem(
+            "cobalt_ingot",
+            new Item(new FabricItemSettings().group(ModItemGroups.ORES))
+    );
+    public static final Item RAW_TITANIUM = registerItem(
+            "raw_titanium",
+            new Item(new FabricItemSettings().group(ModItemGroups.ORES))
+    );
+    public static final Item TITANIUM_INGOT = registerItem(
+            "titanium_ingot",
+            new Item(new FabricItemSettings().group(ModItemGroups.ORES))
+    );
+
+
+
+    //tools
     public static final Item OSMIUM_PICKAXE = registerItem(
         "osmium_pickaxe",
         new ModPickaxeItem(ModToolMaterial.OSMIUM, 2, 2f,
